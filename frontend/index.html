@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript"></script>
+</head>
+<body>
+    
+    Name : <input id = "idName" name = "username" type="text"> <br><br>
+    Password : <input id="idPassword" name = "password" type="password"> <br><br>
+    <input type="submit" id="idLogin" value = "Login">
+  
+  </form>
+  <script>
+    $("#idLogin").click(function() {
+      var data = [];
+      data.username = $("#idName").val();
+      data.password = $("#idPassword").val();
+      $.ajax({
+        type: 'POST',
+        data: {
+          username: data.username,
+          password: data.password
+        },
+        dataType: "json",
+        url: 'http://localhost:3000/login',						
+        success: function(data) {
+            localStorage.setItem("token", data['token']);
+            location.href = "/list.html";
+        }
+      });
+    })
+  </script>
+</body>
+</html>
